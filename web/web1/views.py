@@ -4,24 +4,13 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpRequest
 # from web1 import form
 # import form
-from web1.form import UserForm
+# from web1.form import UserForm
+
+from SqlDriver import SqlDriver
+from form import UserForm
 
 
 def index(request:HttpRequest):
-    # return HttpResponse("Hello METANIT.COM")
-    # print(request.COOKIES)
-    # # print(request.META)
-    # # for  m in request.META:
-    # #     print(f'Ключ: {m} ----- Значение: {request.META[m]}',)
-    # # print(dict(request))
-    # responses=HttpResponse('<p> Привет Мир </p>')
-    # i = int(request.COOKIES['1'])
-    # print(i)
-    # i+=1
-    # responses.set_cookie('1',str(i))
-    # # HttpResponse.set_cookie
-    # # return HttpResponse('<p> Привет Мир </p>')
-    # return responses
     return render(request, "test1.html")
 
 def foo(request:HttpRequest,name='Будеш хуй',age=20):
@@ -31,19 +20,36 @@ def foo(request:HttpRequest,name='Будеш хуй',age=20):
     # print(user)
     return HttpResponse(f'Имя {name}: возраст {age}')
 
-def AddUserDB(request:HttpRequest):
-
-
+def InsertUserDB(request:HttpRequest):
     if request.method=='POST':
-        name=request.POST.get('name')
+        form=UserForm(request.POST)#
+        if form.is_valid():
+            # form.cleaned_data['name']
+            # form.cleaned_data['age']
+            name=form.cleaned_data['name']
+            if ' ' in   name:
+                return HttpResponse(' Дич')
+            form=UserForm()
+            print(request.POST)
+            data={}
+            data['fio']=request.POST.get('name')
+            data['age'] = request.POST.get('age')
+            data['pasport'] = request.POST.get('pasport')
+            status="Все ок"
+            # sql = SqlDriver()
+            # sql.connect(sql.insert_db,data)
+            SqlDriver.connect(SqlDriver.insert_db,data)
 
-        age = request.POST.get('age')
-        form=UserForm(initial={'name': name,'age': age})
-        print(form.name2)
+            return render(request, 'adduser.html', {'form': form,'status':'Все ок'})
+        else:
+            return render(request, 'adduser.html', {'form': form,'status':'Не верно ввел'})
 
-        print(name,age)
-        # form.
-        return render(request, 'adduser.html', {'form': form})
     else:
         form = UserForm()
         return render(request,'adduser.html', {'form':form})
+
+def CreateDB(request):
+    sql=SqlDriver()
+    sql.connect(sql.CreateDB)
+    # sql.CreateDB()
+    return HttpResponse('Таблицы созданы')

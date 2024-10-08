@@ -22,5 +22,6 @@ urlpatterns = [
     path('user',views.foo),
     path('user/<name>',views.foo),
     path('user/<name>/<age>',views.foo),
-    path('adduser',views.AddUserDB),
+    path('adduser',views.InsertUserDB),
+    path('createdb',views.CreateDB),
 ]
