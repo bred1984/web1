@@ -18,10 +18,12 @@ from django.urls import path
 from  web1 import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index),
+    path('',views.index, name='home'),
     path('user',views.foo),
     path('user/<name>',views.foo),
     path('user/<name>/<age>',views.foo),
-    path('adduser',views.InsertUserDB),
-    path('createdb',views.CreateDB),
+    path('adduser',views.InsertUserDB,name='adduser'),
+    path('createdb',views.CreateDB, name='createdb'),
+    path('showuser',views.ShowUser,name='showuser'),
+    path('addphoto',views.AddPhoto,name='addphoto')
 ]

@@ -9,3 +9,9 @@ class UserForm(forms.Form):
     name = forms.CharField(initial='Введите имя')
     age = forms.IntegerField(initial='Введите возраст')
     pasport = forms.CharField(initial='Введите паспорт')
+
+class ShowUserForm(forms.Form):
+    name = forms.CharField(initial='Введите имя')
+
+class AddPhotoForm(forms.Form):
+    name=forms.ImageField(label="Файл")

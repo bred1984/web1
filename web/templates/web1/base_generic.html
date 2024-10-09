@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Django Lesson</title>
+        <style>
+            body, h2, p{
+                margin:0;
+                padding:0;
+            }
+            body{
+                font-size: 18px;
+            }
+            #header{
+                background-color: #eee;
+                border-bottom: 1px solid #ccc;
+                height: 80px;
+            }
+            #menu{
+                background-color: #ddd;
+                float: left;
+                width: 250px;
+            }
+            #main{
+                background-color: #f7f7f7;
+                border-left: 1px solid #ccc;
+                margin-left: 248px;
+                padding: 10px;
+            }
+            #footer{
+                border-top: 1px solid #ccc;
+                background-color: #dedede;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header"><h2>Сайт MySyte.com</h2></div>
+        <div id="menu">
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'createdb' %}">Создать таблицы</a></li>
+                <li><a href="{% url 'adduser' %}">Добавить пользователя</a></li>
+                <li><a href="{% url 'addphoto' %}">Добавить фото</a></li>
+                <li><a href="{% url 'showuser' %}">Список пользователей</a></li>
+                <li><a href="{% url 'showuser' %}">Список пользователей</a></li>
+                <li><a href="#">О сайте</a></li>
+            </ul>
+        </div>
+        <div id="main">
+           <h1>{% block header %}{% endblock header %}</h1>
+           <div>{% block content%}{% endblock content %}</div>
+        </div>
+        <div id="footer">
+            <p>Copyright © MySyte.com, 2016</p>
+        </div>
+    </body>
+</html>
